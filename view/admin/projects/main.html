@@ -1,0 +1,26 @@
+<div class="content-wrapper">
+
+<?php
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content">'.
+    'Шифр: <a class="ref black" href="./files/projects/'.$sth[$key]['code'].'.zip">'.$sth[$key]['code'].' (Скачать)</a></br>'.
+    'Рабочий проект: '.$sth[$key]['name'].'<br>'.
+    'Адрес объекта: '.$sth[$key]['address'].'<br>'.
+    'Заказчик: '.$sth[$key]['customer'].'<br></div>';
+    $counter++;
+
+    if($counter < $total) {
+        echo '<div class="d"></div>';
+    } else {
+    // Если последняя запись, то вывод разделителя не осуществляется
+    }
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'projects');?>
+</div>

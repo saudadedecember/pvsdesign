@@ -1,0 +1,20 @@
+<?php if(!isset($_SESSION['reginfo'])) { ?>
+<div class="content-wrapper-reg">
+    <form action="" method="post">
+        <input class="input-wrapper input-shift" type="text" name="login" placeholder="Имя учетной записи" value="<?php echo @$_POST['login']; ?>">
+        <input class="input-wrapper input-shift" type="text" name="email" placeholder="Адрес электронной почты" value="<?php echo @$_POST['email']; ?>">
+        <input class="input-wrapper input-shift" type="password" name="pass" placeholder="Пароль">
+        <input class="input-wrapper input-shift" type="password" name="passrep" placeholder="Подтвердите пароль">
+        <input class="input-wrapper input-submit" type="submit" name="sendreg" value="Зарегестрироваться">
+    </form>
+    <?php
+  if(count($errors)) {
+    echo '<div class="errors">'.$errors['login'].$errors['email'].$errors['pass'].$errors['passrep'].'</div>';
+    }
+    ?>
+</div>
+<?php } else { ?>
+    <div class="reginfo">На указанный вами адрес электронной почты отправлено письмо для подтверждения регистрации, чтобы активировать учётную запись, перейдите по ссылке в письме</div>
+<?php }
+unset ($_SESSION['reginfo']);
+?>

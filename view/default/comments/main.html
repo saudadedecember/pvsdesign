@@ -1,0 +1,39 @@
+<div class="content-wrapper">
+    <?php
+if(!$rows) {
+    echo '<div class="content">На данный момент комментариев нет</div>';
+}
+while($row = $sth->fetch()) {
+    echo '<div class="content"><b>'.$row['user'].'</b><br>'.$row['comment'].'<span class="date-comment">'.$row['date'].'</span></div>';
+    // осуществляем вывод разделительной линии (split bar) после каждой записи, кроме последней на странице
+    if($_GET['page'] != $pages) {
+    if($splitBar % Core::DISPLAY_COMMENTS != 0) {
+    echo '<div class="d"></div>';
+    $splitBar++;
+    }
+    }
+    else {
+    if($splitBar % Core::DISPLAY_COMMENTS != 0 && $splitBar != $rows % Core::DISPLAY_COMMENTS) {
+    echo '<div class="d"></div>';
+    $splitBar++;
+    }
+    }
+    }
+    ?>
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'comments'); ?>
+</div>
+
+<?php
+if($error) { ?>
+<div class="reginfo">Ваш комментарий либо содержит менее 10 символов, либо имеет некорректную форму</div>
+<?php }
+if(isset($_SESSION['login'])) {?>
+<form action="" method="post">
+    <textarea class="input-comment input-shift" maxlength="1200" name="comment"></textarea>
+    <input class="input-wrapper input-submit-comment" type="submit" name="sendcomment" value="Оставить комментарий">
+</form>
+<?php } else { ?>
+<div class="reginfo">Для того чтобы оставлять комментарии, зарегистрируйтесь</div>
+<?php } ?>

@@ -1,0 +1,52 @@
+<?php
+// Если существуют данные сессии администратора и файлы соответствующего модуля контроллера (controller), то подключаем их
+if (file_exists('./modules/admin/'.$_GET['module'].'/'.$_GET['form'].'.php') && isset($_SESSION['admin'])) {
+    include_once './modules/admin/'.$_GET['module'].'/'.$_GET['form'].'.php';
+    } else {
+        // В противном случаее подключаем файлы модулей default (controller)
+        include_once './modules/'.$_GET['module'].'/'.$_GET['form'].'.php';
+        }
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>pvsdesign</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/view/default/img/favicon.png">
+    <link rel="stylesheet" href="/view/default/css/import.css">
+    <link rel="stylesheet" href="/view/admin/css/import.css">
+</head>
+<body>
+    <header>
+        <div class="header-wrapper">
+            <a class="heading <?php echo heading_active('homepage', 'heading-active'); ?> heading-logo ref" href="/homepage">PVSDESIGN</a>
+            <a class="heading <?php echo heading_active('projects', 'heading-active'); ?> ref" href="/projects">Проекты</a>
+            <a class="heading <?php echo heading_active('doc', 'heading-active'); ?> ref" href="/doc">Документация</a>
+            <a class="heading <?php echo heading_active('comments', 'heading-active'); ?> ref" href="/comments">Комментарии</a>
+            <a class="heading <?php echo heading_active('contacts', 'heading-active'); ?> ref" href="/contacts">Контакты</a>
+
+            <a class="heading button right <?php echo heading_active('reg', 'heading-active'); ?> ref" href="/reg"><?php echo $href2;?></a>
+            <a class="heading button left <?php echo heading_active('entry', 'heading-active'); ?> ref" href="/entry"><?php echo $href1;?></a>
+        </div>
+    </header>
+
+    <article>
+
+<?php
+// Если существуют данные сессии администратора и файлы соответствующего модуля представления (view), то подключаем их
+if (file_exists('./view/admin/'.$_GET['module'].'/'.$_GET['form'].'.html') && isset($_SESSION['admin'])) {
+    include_once './view/admin/'.$_GET['module'].'/'.$_GET['form'].'.html';
+    } else {
+        // В противном случаее подключаем файлы модулей default (view)
+        include_once './view/default/'.$_GET['module'].'/'.$_GET['form'].'.html';
+        }
+?>
+
+    </article>
+
+    <footer>
+        <p><?php echo showCopyrightInfo();?></p>
+    </footer>
+</body>
+</html>

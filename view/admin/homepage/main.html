@@ -1,0 +1,46 @@
+<div class="content-wrapper">
+    <form action="" method="post">
+        <?php if(isset($_POST['edit'])) {
+            echo '<input type="hidden" name="editID" value="'.$sth1[0]['id'].'">
+        <textarea class="input-comment-admin" maxlength="1200" name="editUPDATE">'.$sth1[0]['text'].'</textarea>
+
+        <input class="submit-comment-admin" type="submit" name="sendcomment" value="Добавить новость">';
+        } else {
+        echo '<textarea class="input-comment-admin" maxlength="1200" name="add"></textarea>
+        <input class="submit-comment-admin" type="submit" name="sendcomment" value="Добавить новость">';
+        }?>
+
+    </form>
+
+<?php
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content"><span class="date">'.
+    $sth[$key]['date'].'</span>'.
+    $sth[$key]['text'];
+    echo '<form action="" method="post">
+        <input type="hidden" name="delete" value="'.$sth[$key]['id'].'">
+        <input class="submit-delete-comment" type="submit" name="deletecomment" value="Удалить">
+    </form>';
+    echo '<form action="" method="post">
+        <input type="hidden" name="edit" value="'.$sth[$key]['id'].'">
+        <input class="submit-delete-comment" type="submit" name="editcomment" value="Редактировать">
+    </form></div>';
+    $counter++;
+
+    echo '<div class="clear"></div>';
+
+    if($counter < $total) {
+        echo '<div class="d"></div>';
+    } else {
+    // Если последняя запись, то вывод разделителя не осуществляется
+    }
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'homepage');?>
+</div>

@@ -1,0 +1,12 @@
+<div class="content-wrapper-reg">
+    <form action="" method="post">
+        <input class="input-wrapper input-shift" type="text" name="login" placeholder="Имя учетной записи или E-mail">
+        <input class="input-wrapper input-shift" type="password" name="pass" placeholder="Пароль">
+        <input class="input-wrapper input-submit" type="submit" name="sendreg" value="Войти">
+    </form>
+    <?php
+  if(count($errors)) {
+    echo '<div class="errors">'.$errors['login'].'</div>';
+}
+?>
+</div>

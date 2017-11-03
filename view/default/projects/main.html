@@ -1,0 +1,28 @@
+<div class="content-wrapper">
+<?php
+while($row = $sth->fetch()) {
+    echo '<div class="content">'.
+    'Шифр: <a class="ref black" href="./files/projects/'.$row['code'].'.zip">'.$row['code'].' (Скачать)</a><br>'.
+    'Рабочий проект: '.$row['name'].'<br>'.
+    'Адрес объекта: '.$row['address'].'<br>'.
+    'Заказчик: '.$row['customer'].'<br></div>';
+
+    // осуществляем вывод разделительной линии (split bar) после каждой записи, кроме последней на странице
+    if($_GET['page'] != $pages) {
+    if($splitBar % Core::DISPLAY_PROJECTS != 0) {
+    echo '<div class="d"></div>';
+    $splitBar++;
+    }
+    }
+    else {
+    if($splitBar % Core::DISPLAY_PROJECTS != 0 && $splitBar != $rows % Core::DISPLAY_PROJECTS) {
+    echo '<div class="d"></div>';
+    $splitBar++;
+    }
+    }
+}
+?>
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'projects');?>
+</div>

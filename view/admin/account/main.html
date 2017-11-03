@@ -1,0 +1,28 @@
+<div class="content-wrapper">
+    <div class="content">
+        <?php echo 'Логин: <b>'.$_SESSION['login'].'</b><br>E-mail: <b>'.$_SESSION['entry'].'</b><br>IP-адресс (В админ панеле): <b>'.$_SERVER['REMOTE_ADDR'].'</b>';?>
+   </div>
+<?php
+while($row = $sth->fetch()) {
+echo '<div class="content"><b>'.$row['user'].'</b><br>'.$row['comment'].'<span class="date-comment">'.$row['date'].'</span></div>';
+
+// осуществляем вывод разделительной линии (split bar) после каждой записи, кроме последней на странице
+if($_GET['page'] != $pages) {
+if($splitBar % Core::DISPLAY_COMMENTS != 0) {
+echo '<div class="d"></div>';
+$splitBar++;
+}
+}
+else {
+if($splitBar % Core::DISPLAY_COMMENTS != 0 && $splitBar != $rows % Core::DISPLAY_COMMENTS) {
+echo '<div class="d"></div>';
+$splitBar++;
+}
+}
+}
+?>
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'account');?>
+</div>
+</div>
